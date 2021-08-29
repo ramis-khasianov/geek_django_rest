@@ -6,7 +6,10 @@ from userapp.models import User
 class Project(models.Model):
     name = models.CharField(max_length=255)
     repository = models.URLField()
-    member = models.ManyToManyField(User)
+    members = models.ManyToManyField(User, blank=True)
+
+    def __str__(self):
+        return self.name
 
 
 class ToDo(models.Model):
@@ -14,4 +17,7 @@ class ToDo(models.Model):
     text = models.TextField()
     created = models.DateTimeField(auto_now_add=True)
     author = models.ForeignKey(User, on_delete=models.CASCADE)
-    is_active = models.BooleanField()
+    is_active = models.BooleanField(default=True)
+
+    def __str__(self):
+        return f'Todo {self.pk} for {self.project.name} by {self.author}'
