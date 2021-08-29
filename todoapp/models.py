@@ -1,0 +1,17 @@
+from django.db import models
+
+from userapp.models import User
+
+
+class Project(models.Model):
+    name = models.CharField(max_length=255)
+    repository = models.URLField()
+    member = models.ManyToManyField(User)
+
+
+class ToDo(models.Model):
+    project = models.ForeignKey(Project, on_delete=models.CASCADE)
+    text = models.TextField()
+    created = models.DateTimeField(auto_now_add=True)
+    author = models.ForeignKey(User, on_delete=models.CASCADE)
+    is_active = models.BooleanField()
