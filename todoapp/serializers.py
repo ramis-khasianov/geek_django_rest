@@ -1,11 +1,11 @@
 from rest_framework import serializers
 
 from todoapp.models import Project, ToDo
-from userapp.serializers import UserModelSerializer
+from userapp.serializers import UserSerializer
 
 
 class ToDoSerializer(serializers.ModelSerializer):
-    author = UserModelSerializer()
+    author = UserSerializer()
 
     class Meta:
         model = ToDo
@@ -23,7 +23,7 @@ class ProjectToDoSerializer(serializers.ModelSerializer):
 
 
 class ProjectSerializer(serializers.ModelSerializer):
-    members = UserModelSerializer(many=True)
+    members = UserSerializer(many=True)
     todos = ProjectToDoSerializer(many=True, read_only=True)
 
     class Meta:
