@@ -16,7 +16,8 @@ class ToDo(models.Model):
     project = models.ForeignKey(Project, related_name='todos', on_delete=models.CASCADE)
     text = models.TextField()
     created = models.DateTimeField(auto_now_add=True)
-    author = models.ForeignKey(User, on_delete=models.CASCADE)
+    updated = models.DateTimeField(auto_now=True)
+    author = models.ForeignKey(User, on_delete=models.PROTECT)
     is_active = models.BooleanField(default=True)
 
     def __str__(self):
