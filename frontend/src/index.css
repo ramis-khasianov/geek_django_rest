@@ -14,12 +14,23 @@ body {
   margin: 15px;
 }
 
+.menu-item {
+  margin: 6px 10px;
+}
+
+.logo {
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 24px;
+  line-height: 30px;
+}
+
 .footer {
   height: 60px;
 }
 
 .user-list {
-  min-height: calc(100vh - 120px);
+  min-height: calc(50vh - 120px);
 }
 
 .user-list-header {
@@ -31,7 +42,7 @@ body {
 
 .user-list-header > p {
   margin: 16px;
-  min-width: 100px;
+  min-width: 230px;
 }
 
 .user-list-item {
@@ -42,5 +53,5 @@ body {
 
 .user-list-item > p {
   margin: 16px;
-  min-width: 100px;
+  min-width: 230px;
 }
