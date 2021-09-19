@@ -1,7 +1,8 @@
+import coreapi
 from django.contrib.auth import get_user_model
+from mixer.backend.django import mixer
 from rest_framework import status
 from rest_framework.test import APITestCase
-
 from todoapp.models import Project, ToDo
 
 
@@ -43,5 +44,34 @@ class TestToDoViewSet(APITestCase):
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         todo = ToDo.objects.get(id=todo.id)
         self.assertEqual(todo.text, 'Altered test case todo')
+
+    def test_create_project(self):
+        self.client.login(username='django', password='geekbrains')
+        project = mixer.blend(Project)
+        response = self.client.post(
+            f'/api/projects/',
+            {
+                'name': project.name,
+                'repository': project.repository
+            })
+        self.assertEqual(response.status_code, status.HTTP_201_CREATED)
+
+    def test_live_get_list(self):
+        client = coreapi.Client()
+        schema = client.get('http://localhost:8000/schema/')
+        action = ['token-auth', 'create']
+        params = {'username': 'django', 'password': 'geekbrains'}
+        result = client.action(schema, action, params, validate=True)
+        auth = coreapi.auth.TokenAuthentication(
+            scheme='Token',
+            token=result['token']
+        )
+        client = coreapi.Client(auth=auth)
+
+        schema = client.get('http://localhost:8000/schema/')
+
+        action = ['projects', 'list']
+        data = client.action(schema, action)
+        self.assertGreater(data['count'], 0)
 
 

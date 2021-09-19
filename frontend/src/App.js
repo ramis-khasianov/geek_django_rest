@@ -12,7 +12,6 @@ import Cookies from "universal-cookie/lib";
 import LoginForm from "./components/Auth";
 
 const API_ROOT = 'http://127.0.0.1:8000/api/';
-const API_AUTH_ROOT = 'http://127.0.0.1:8000/api-token-auth/';
 const getUrl = url => `${API_ROOT}${url}`;
 
 
@@ -60,7 +59,7 @@ class App extends React.Component {
     }
 
     getToken(username, password) {
-        axios.post(API_AUTH_ROOT, {username: username, password: password})
+        axios.post(getUrl('token-auth/'), {username: username, password: password})
             .then(response => {
                 this.setToken(response.data['token'])
             })
