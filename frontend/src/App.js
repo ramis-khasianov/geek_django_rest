@@ -121,7 +121,7 @@ class App extends React.Component {
                             <ProjectsList projects={this.state.projects}/>
                         </Route>
                         <Route exact path={'/projects/:id'} component={() =>
-                            <ProjectDetails projects={this.state.projects}/>
+                            <ProjectDetails  projects={this.state.projects}/>
                         }/>
                         <Route exact path={'/login'}>
                             {this.isAuthenticated() ?

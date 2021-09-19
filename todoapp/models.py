@@ -11,6 +11,9 @@ class Project(models.Model):
     def __str__(self):
         return self.name
 
+    class Meta:
+        ordering = ['id']
+
 
 class ToDo(models.Model):
     project = models.ForeignKey(Project, related_name='todos', on_delete=models.CASCADE)
@@ -22,3 +25,6 @@ class ToDo(models.Model):
 
     def __str__(self):
         return f'Todo {self.pk} for {self.project.name} by {self.author}'
+
+    class Meta:
+        ordering = ['id']

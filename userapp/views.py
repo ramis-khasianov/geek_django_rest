@@ -10,3 +10,4 @@ class UsersViewSet(mixins.ListModelMixin,
                    viewsets.GenericViewSet):
     serializer_class = UserSerializer
     queryset = User.objects.all()  # Честно, не додумался бы не посмотрев 5ый урок :)
+
