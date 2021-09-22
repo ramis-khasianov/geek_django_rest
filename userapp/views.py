@@ -1,13 +1,18 @@
 from rest_framework import mixins, viewsets
 
 from userapp.models import User
-from userapp.serializers import UserSerializer
+from userapp.serializers import UserSerializer, UserSerializerV2
 
 
 class UsersViewSet(mixins.ListModelMixin,
                    mixins.RetrieveModelMixin,
                    mixins.UpdateModelMixin,
                    viewsets.GenericViewSet):
-    serializer_class = UserSerializer
-    queryset = User.objects.all()  # Честно, не додумался бы не посмотрев 5ый урок :)
+
+    queryset = User.objects.all()
+
+    def get_serializer_class(self):
+        if self.request.version == '1.0':
+            return UserSerializer
+        return UserSerializerV2
 
